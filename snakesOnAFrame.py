@@ -2,6 +2,8 @@
 from snakes import deps_gen, work_gen, task_final, task_fail
 import time,sys,os
 class SnakeFrame():
+    statuspath=""
+    configpath=""
     def __init__(self,confpath,statpath):
         self.statuspath=statpath
         self.configpath=confpath
