@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from snakes import deps_gen, work_gen, task_final, task_fail
-import time,sys,os
+import time,sys,os,subprocess
 class SnakeFrame():
     def __init__(self,confpath,statpath):
         self.parse_config(confpath)
@@ -31,40 +31,40 @@ class SnakeFrame():
             if x: return x
         return False
     def claim_task(self,tid):
-        os.popen("git pull")
+        subprocess.Popen("git pull", shell=True)
         with open(self.statuspath,"a") as statfile:
             statfile.write(""+str(tid)+":"+str(time.time())+"\n")
-        os.popen("git commit -a -m 'claim "+str(tid)+"'")
-        os.popen("git push")
+        subprocess.Popen("git commit -a -m 'claim "+str(tid)+"'", shell=True)
+        subprocess.Popen("git push", shell=True)
     def end_task(self,tid):
-        os.popen("git pull")
+        subprocess.Popen("git pull", shell=True)
         with open(self.statuspath,"a") as statfile:
             statfile.write(""+str(tid)+":0"+"\n")
-        os.popen("git commit -m -a 'finish "+str(tid)+"'")
-        os.popen("git push")
+        subprocess.Popen("git commit -m -a 'finish "+str(tid)+"'", shell=True)
+        subprocess.Popen("git push", shell=True)
     def setup_branch(self,branch,deps,in_use):
         self.claim_task(branch)
         if not in_use:
-            os.popen("git checkout -b " + str(branch))
-            for d in deps: os.popen("git merge "+str(d))
-            os.popen("mkdir src out")
-            os.popen("git mv out/* src/")
-            os.popen("git commit -a -m 'init'")
-            os.popen("git push")
-        else: os.popen("git checkout "+str(branch))
+            subprocess.Popen("git checkout -b " + str(branch), shell=True)
+            for d in deps: subprocess.Popen("git merge "+str(d), shell=True)
+            subprocess.Popen("mkdir src out", shell=True)
+            subprocess.Popen("git mv out/* src/", shell=True)
+            subprocess.Popen("git commit -a -m 'init'", shell=True)
+            subprocess.Popen("git push", shell=True)
+        else: subprocess.Popen("git checkout "+str(branch), shell=True)
     def teardown_branch(self,branch):
-        os.popen("git rm src/*")
-        os.popen("git add out/*")
-        os.popen("git commit -a -m 'final'")
-        os.popen("git push")
-        os.popen("git checkout HEAD")
+        subprocess.Popen("git rm src/*", shell=True)
+        subprocess.Popen("git add out/*", shell=True)
+        subprocess.Popen("git commit -a -m 'final'", shell=True)
+        subprocess.Popen("git push", shell=True)
+        subprocess.Popen("git checkout HEAD", shell=True)
         self.end_task(branch)
         if int(branch)==int(self.config["init_task"]):
-            os.popen("git merge "+str(self.config["init_task"]))
-            os.popen("git commit -a -m 'DONE!'")
+            subprocess.Popen("git merge "+str(self.config["init_task"]), shell=True)
+            subprocess.Popen("git commit -a -m 'DONE!'", shell=True)
             self.parse_status(self.statuspath)
-            for t in self.stats["done"]: os.popen("git branch -d "+str(t))
-            os.popen("git push")
+            for t in self.stats["done"]: subprocess.Popen("git branch -d "+str(t), shell=True)
+            subprocess.Popen("git push", shell=True)
             task_final()
 
 def main():
