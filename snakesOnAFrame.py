@@ -4,7 +4,7 @@ import time,sys,os
 class SnakeFrame():
     def __init__(confpath,statpath,self):
         self.parse_config(confpath)
-        self.parse_status(statpath
+        self.parse_status(statpath)
     def parse_status(statuspath, self):
         self.statuspath=statuspath
         with open(statuspath) as statfile:
@@ -69,11 +69,11 @@ def main():
     task,in_use=frame.get_nest_free_task()
     if not task: return
     frame.claim_task(task)
-    deps=deps_gen(int(task)
+    deps=deps_gen(int(task))
     frame.setup_branch(task,deps,in_use)
     func=work_gen(task)
     if not work_gen(task): return task_fail()
     self.teardown_branch(task)
     return
 
-main()
+#main()
