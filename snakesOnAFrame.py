@@ -10,6 +10,7 @@ class SnakeFrame():
         with open(statuspath) as statfile:
             self.stats={"done":set(),"working":{}}
             for x in statfile:
+                if len(x.split(":") !=2: continue
                 task, time = int(x.split(":")[0].strip()), int(x.split(":")[1].strip())
                 if time == 0: self.stats["done"].add(task)
                 else: self.stats["working"][task]=time
