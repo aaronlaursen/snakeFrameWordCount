@@ -68,7 +68,7 @@ class SnakeFrame():
 
 def main():
     frame=SnakeFrame("config","status")
-    task,in_use=frame.get_nest_free_task()
+    task,in_use=frame.get_next_free_task()
     if not task: return
     frame.claim_task(task)
     deps=deps_gen(int(task))
