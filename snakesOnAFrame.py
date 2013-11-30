@@ -77,4 +77,4 @@ def main():
     self.teardown_branch(task)
     return
 
-#main()
+main()
