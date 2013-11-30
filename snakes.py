@@ -2,15 +2,15 @@
 #returns True/False for success/failure
 urls = [ "http://mirror.csclub.uwaterloo.ca/gutenberg/7/76/76.txt"
     , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/3/4/1342/1342.txt"
-    , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/3/135/135.txt"
-    , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/6/6/1661/1661.txt"
-    , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/11/11.txt"
-    , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/6/3/2/16328/16328.txt"
-    , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/2/3/1232/1232.txt"
-    , "http://mirror.csclub.uwaterloo.ca/gutenberg/2/5/9/2591/2591.txt"        
-    , "http://mirror.csclub.uwaterloo.ca/gutenberg/5/2/0/5200/5200.txt"
-    , "http://mirror.csclub.uwaterloo.ca/gutenberg/8/4/844/844.txt"]
-    
+    , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/3/135/135.txt"]
+#    , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/6/6/1661/1661.txt"
+#    , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/11/11.txt"
+#    , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/6/3/2/16328/16328.txt"
+#    , "http://mirror.csclub.uwaterloo.ca/gutenberg/1/2/3/1232/1232.txt"
+#    , "http://mirror.csclub.uwaterloo.ca/gutenberg/2/5/9/2591/2591.txt"        
+#    , "http://mirror.csclub.uwaterloo.ca/gutenberg/5/2/0/5200/5200.txt"
+#    , "http://mirror.csclub.uwaterloo.ca/gutenberg/8/4/844/844.txt"]
+
 def work_gen(unit_id):
     unit_id=int(unit_id)
     if unit_id >1000:
