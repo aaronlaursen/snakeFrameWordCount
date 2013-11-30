@@ -46,6 +46,7 @@ class SnakeFrame():
         if not in_use:
             os.popen("git checkout -b " + str(branch))
             for d in deps: os.popen("git merge "+str(d))
+            os.popen("mkdir src out")
             os.popen("git mv out/* src/")
             os.popen("git commit -a -m 'init'")
             os.popen("git push")
@@ -74,7 +75,7 @@ def main():
     frame.setup_branch(task,deps,in_use)
     func=work_gen(task)
     if not work_gen(task): return task_fail()
-    self.teardown_branch(task)
+    frame.teardown_branch(task)
     return
 
 main()
