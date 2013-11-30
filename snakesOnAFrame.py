@@ -2,11 +2,7 @@
 from snakes import deps_gen, work_gen, task_final, task_fail
 import time,sys,os
 class SnakeFrame():
-    statuspath=""
-    configpath=""
     def __init__(self,confpath,statpath):
-        self.statuspath=statpath
-        self.configpath=confpath
         self.parse_config(confpath)
         self.parse_status(statpath)
     def parse_status(self,statuspath):
@@ -35,13 +31,13 @@ class SnakeFrame():
         return False
     def claim_task(self,tid):
         os.popen("git pull")
-        with open(self.satuspath,"a") as statfile:
+        with open(self.statuspath,"a") as statfile:
             statfile.write(""+str(tid)+":"+str(time.time()))
         os.popen("git commit -a -m 'claim "+str(tid)+"'")
         os.popen("git push")
     def end_task(self,tid):
         os.popen("git pull")
-        with open(self.satuspath,"a") as statfile:
+        with open(self.statuspath,"a") as statfile:
             statfile.write(""+str(tid)+":0")
         os.popen("git commit -m -a 'finish "+str(tid)+"'")
         os.popen("git push")
