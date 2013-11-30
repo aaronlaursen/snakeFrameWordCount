@@ -47,9 +47,8 @@ def work_gen(unit_id):
     return (lambda x: False)
 
 def deps_gen(unit_id):
-    unit_id = int(unit_id)
-        return set([x +1000 for x in range(len(urls))])
-	return []
+    if int(unit_id)==0: return set([x +1000 for x in range(len(urls))])
+    return set()
 
 def task_final():
     print("DONE!!! WHOOP! WHOOP!")
