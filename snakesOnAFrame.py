@@ -2,10 +2,10 @@
 from snakes import deps_gen, work_gen, task_final, task_fail
 import time,sys,os
 class SnakeFrame():
-    def __init__(confpath,statpath,self):
+    def __init__(self,confpath,statpath):
         self.parse_config(confpath)
         self.parse_status(statpath)
-    def parse_status(statuspath, self):
+    def parse_status(self,statuspath):
         self.statuspath=statuspath
         with open(statuspath) as statfile:
             self.stats={"done":set(),"working":{}}
@@ -13,7 +13,7 @@ class SnakeFrame():
                 task, time = int(x.split(":")[0].strip()), int(x.split(":")[1].strip())
                 if time == 0: self.stats["done"].add(task)
                 else: self.stats["working"][task]=time
-    def parse_config(configpath, self):
+    def parse_config(self, configpath):
         self.configpath=configpath
         with open(configpath) as confile:
             self.config={l.split(":")[0].strip() : l.split(":")[1].strip() for l in confile}
@@ -21,7 +21,7 @@ class SnakeFrame():
         t=nxt_free_helper(int(self.config["init_task"]),self)
         if t or len(self.status["working"])==0: return t, False
         return min(self.status["working"].keys(), key=(lambda x: self.status["working"][x])), True
-    def nxt_free_helper(task,self):
+    def nxt_free_helper(self,task):
         deps=deps_gen(task)
         if len(deps)==0: return task
         if set(deps) <= self.stats["done"]:return task
@@ -29,19 +29,19 @@ class SnakeFrame():
             x=self.nxt_free_helper(dep,self)
             if x: return x
         return False
-    def claim_task(tid,self):
+    def claim_task(self,tid):
         os.popen("git pull")
         with open(self.satuspath,"a") as statfile:
             statfile.write(""+str(tid)+":"+str(time.time()))
         os.popen("git commit -a -m 'claim "+str(tid)+"'")
         os.popen("git push")
-    def end_task(tid,self):
+    def end_task(self,tid):
         os.popen("git pull")
         with open(self.satuspath,"a") as statfile:
             statfile.write(""+str(tid)+":0")
         os.popen("git commit -m -a 'finish "+str(tid)+"'")
         os.popen("git push")
-    def setup_branch(branch,deps,in_use,self):
+    def setup_branch(self,branch,deps,in_use):
         self.claim_task(branch)
         if not in_use:
             os.popen("git checkout -b " + str(branch))
@@ -51,7 +51,7 @@ class SnakeFrame():
             os.popen("git commit -a -m 'init'")
             os.popen("git push")
         else: os.popen("git checkout "+str(branch))
-    def teardown_branch(branch,self):
+    def teardown_branch(self,branch):
         os.popen("git rm src/*")
         os.popen("git add out/*")
         os.popen("git commit -a -m 'final'")
