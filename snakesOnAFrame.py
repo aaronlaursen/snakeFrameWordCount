@@ -32,13 +32,13 @@ class SnakeFrame():
     def claim_task(self,tid):
         os.popen("git pull")
         with open(self.statuspath,"a") as statfile:
-            statfile.write(""+str(tid)+":"+str(time.time()))
+            statfile.write(""+str(tid)+":"+str(time.time())+"\n")
         os.popen("git commit -a -m 'claim "+str(tid)+"'")
         os.popen("git push")
     def end_task(self,tid):
         os.popen("git pull")
         with open(self.statuspath,"a") as statfile:
-            statfile.write(""+str(tid)+":0")
+            statfile.write(""+str(tid)+":0"+"\n")
         os.popen("git commit -m -a 'finish "+str(tid)+"'")
         os.popen("git push")
     def setup_branch(self,branch,deps,in_use):
