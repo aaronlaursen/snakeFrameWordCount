@@ -51,7 +51,8 @@ class SnakeFrame():
             os.popen("git push")
         else: os.popen("git checkout "+str(branch))
     def teardown_branch(branch,self):
-        os.popen("git rm src/")
+        os.popen("git rm src/*")
+        os.popen("git add out/*")
         os.popen("git commit -a -m 'final'")
         os.popen("git push")
         os.popen("git checkout HEAD")
