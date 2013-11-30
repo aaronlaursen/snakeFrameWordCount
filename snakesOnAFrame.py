@@ -26,7 +26,7 @@ class SnakeFrame():
         if len(deps)==0: return task
         if set(deps) <= self.stats["done"]:return task
         for dep in deps_gen(task):
-            x=self.nxt_free_helper(dep,self)
+            x=self.nxt_free_helper(dep)
             if x: return x
         return False
     def claim_task(self,tid):
