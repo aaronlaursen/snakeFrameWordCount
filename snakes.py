@@ -18,6 +18,7 @@ def work_gen(unit_id):
     print("**********************************************************")
     if unit_id >1000:
         def count_a_book(unit_id):
+            print("asdf")
             url=urls[unit_id-1000]
             import urllib.request
             print("fetching:",url)
@@ -47,6 +48,7 @@ def work_gen(unit_id):
                 for k,v in sorted_count:
                     outfile.write(""+str(v)+"\t"+str(k)+"\n")
             return True
+        return reducer
     return (lambda x: False)
 
 def deps_gen(unit_id):
