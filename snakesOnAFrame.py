@@ -57,7 +57,7 @@ class SnakeFrame():
         subprocess.Popen("git add out/*", shell=True).wait()
         subprocess.Popen("git commit -a -m 'final'", shell=True).wait()
         subprocess.Popen("git push", shell=True).wait()
-        subprocess.Popen("git checkout HEAD", shell=True).wait()
+        subprocess.Popen("git checkout master", shell=True).wait()
         self.end_task(branch)
         if int(branch)==int(self.config["init_task"]):
             subprocess.Popen("git merge "+str(self.config["init_task"]), shell=True).wait()
