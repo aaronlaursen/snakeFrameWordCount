@@ -15,7 +15,7 @@ class SnakeFrame():
                 if time == 0:
                     self.stats["done"].add(task)
                     if task in self.stats['working']:
-                        del self.stats['working']
+                        del self.stats['working'][task]
                 elif task not in self.stats['done']:
                     self.stats["working"][task]=time
     def parse_config(self, configpath):
