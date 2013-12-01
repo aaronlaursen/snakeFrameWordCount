@@ -24,16 +24,16 @@ class SnakeFrame():
             self.config={l.split(":")[0].strip() : l.split(":")[1].strip() for l in confile}
     def get_next_free_task(self):
         t=self.nxt_free_helper(int(self.config["init_task"]))
-        if t or len(self.stats["working"])==0: return t, False
+        if t != None or len(self.stats["working"])==0: return t, False
         return min(self.stats["working"].keys(), key=(lambda x: self.stats["working"][x])), True
     def nxt_free_helper(self,task):
         deps=deps_gen(task)
         if len(deps)==0: return task
         if set(deps) <= self.stats["done"]:return task
         for dep in deps_gen(task):
+            if dep in self.stats['done']: continue
             x=self.nxt_free_helper(dep)
-            if x in self.stats['done']: continue
-            if x: return x
+            if x != None: return x
         return task
     def claim_task(self,tid):
         subprocess.Popen("git pull", shell=True).wait()
