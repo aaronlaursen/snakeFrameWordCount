@@ -43,7 +43,7 @@ def work_gen(unit_id):
                         if k not in total_counts: total_counts[k]=0
                         total_counts[k]+=v
             import operator
-            sorted_count = sorted(total_counts.items(),operator.itemgetter(1))
+            sorted_count = sorted(total_counts.items(),key=operator.itemgetter(1))
             with open("out/final_counts","w") as outfile:
                 for k,v in sorted_count:
                     outfile.write(""+str(v)+"\t"+str(k)+"\n")
