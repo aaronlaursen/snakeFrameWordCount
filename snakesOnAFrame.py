@@ -12,8 +12,12 @@ class SnakeFrame():
             for x in statfile:
                 if len(x.split(":")) !=2: continue
                 task, time = int(x.split(":")[0].strip()), int(float(x.split(":")[1].strip()))
-                if time == 0: self.stats["done"].add(task)
-                else: self.stats["working"][task]=time
+                if time == 0:
+                    self.stats["done"].add(task)
+                    if task in self.stats['working']:
+                        del self.stats['working']
+                else if task not in self.stats['done']:
+                    self.stats["working"][task]=time
     def parse_config(self, configpath):
         self.configpath=configpath
         with open(configpath) as confile:
@@ -28,6 +32,7 @@ class SnakeFrame():
         if set(deps) <= self.stats["done"]:return task
         for dep in deps_gen(task):
             x=self.nxt_free_helper(dep)
+            if x in self.stats['done']: continue
             if x: return x
         return False
     def claim_task(self,tid):
