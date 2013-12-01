@@ -34,7 +34,7 @@ class SnakeFrame():
             x=self.nxt_free_helper(dep)
             if x in self.stats['done']: continue
             if x: return x
-        return False
+        return dep
     def claim_task(self,tid):
         subprocess.Popen("git pull", shell=True).wait()
         with open(self.statuspath,"a") as statfile:
