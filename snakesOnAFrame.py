@@ -23,11 +23,8 @@ class SnakeFrame():
         with open(configpath) as confile:
             self.config={l.split(":")[0].strip() : l.split(":")[1].strip() for l in confile}
     def get_next_free_task(self):
-        print(self.stats)
         t=self.nxt_free_helper(int(self.config["init_task"]))
-        print(t)
         if t != None or len(self.stats["working"])==0: return t, False
-        print("occupied!")
         return min(self.stats["working"].keys(), key=(lambda x: self.stats["working"][x])), True
     def nxt_free_helper(self,task):
         deps=deps_gen(task)
@@ -78,7 +75,7 @@ class SnakeFrame():
 def main():
     frame=SnakeFrame("config","status")
     task,in_use=frame.get_next_free_task()
-    if not task: return
+    if task == None: return
     frame.claim_task(task)
     deps=deps_gen(int(task))
     frame.setup_branch(task,deps,in_use)
