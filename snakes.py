@@ -15,6 +15,7 @@ def work_gen(unit_id):
     unit_id=int(unit_id)
     if unit_id >1000:
         def count_a_book(unit_id):
+            print("asdfasdfasdf")
             url=urls[unit_id-1000]
             import urllib.request
             print("fetching:",url)
