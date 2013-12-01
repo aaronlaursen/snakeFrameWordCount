@@ -55,7 +55,7 @@ class SnakeFrame():
         self.claim_task(branch)
         if not in_use:
             subprocess.Popen("git checkout -b " + str(branch), shell=True).wait()
-            for d in deps: subprocess.Popen("git merge "+str(d), shell=True).wait()
+            for d in deps: subprocess.Popen("git merge -m 'merge' "+str(d), shell=True).wait()
             subprocess.Popen("mkdir src out", shell=True).wait()
             subprocess.Popen("git mv out/* src/", shell=True).wait()
             subprocess.Popen("git commit -a -m 'init'", shell=True).wait()
@@ -69,7 +69,7 @@ class SnakeFrame():
         subprocess.Popen("git checkout master", shell=True).wait()
         self.end_task(branch)
         if int(branch)==int(self.config["init_task"]):
-            subprocess.Popen("git merge "+str(self.config["init_task"]), shell=True).wait()
+            subprocess.Popen("git merge -m 'merge' "+str(self.config["init_task"]), shell=True).wait()
             subprocess.Popen("git commit -a -m 'DONE!'", shell=True).wait()
             self.parse_status(self.statuspath)
             for t in self.stats["done"]: subprocess.Popen("git branch -d "+str(t), shell=True).wait()
