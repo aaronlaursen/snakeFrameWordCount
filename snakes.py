@@ -13,6 +13,9 @@ urls = [ "http://mirror.csclub.uwaterloo.ca/gutenberg/7/76/76.txt"
 
 def work_gen(unit_id):
     unit_id=int(unit_id)
+    print("**********************************************************")
+    print(unit_id)
+    print("**********************************************************")
     if unit_id >1000:
         def count_a_book(unit_id):
             url=urls[unit_id-1000]
