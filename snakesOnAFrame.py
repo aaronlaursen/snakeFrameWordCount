@@ -84,7 +84,7 @@ def main():
     deps=deps_gen(int(task))
     frame.setup_branch(task,deps,in_use)
     func=work_gen(task)
-    if not work_gen(task): return task_fail()
+    if not func(task): return task_fail()
     frame.teardown_branch(task)
     return
 
