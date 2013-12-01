@@ -21,7 +21,11 @@ class SnakeFrame():
     def get_next_free_task(self):
         t=self.nxt_free_helper(int(self.config["init_task"]))
         if t or len(self.stats["working"])==0: return t, False
+<<<<<<< HEAD
         return min(self.stats["working"].keys(), key=(lambda x: self.status["working"][x])), True
+=======
+        return min(self.stats["working"].keys(), key=(lambda x: self.stats["working"][x])), True
+>>>>>>> 0fe5fdda104a65ff4241e6a09d4fcab0c45182c0
     def nxt_free_helper(self,task):
         deps=deps_gen(task)
         if len(deps)==0: return task
