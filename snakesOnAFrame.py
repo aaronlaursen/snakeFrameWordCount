@@ -11,7 +11,7 @@ class SnakeFrame():
             self.stats={"done":set(),"working":{}}
             for x in statfile:
                 if len(x.split(":")) !=2: continue
-                task, time = int(x.split(":")[0].strip()), int(x.split(":")[1].strip())
+                task, time = int(x.split(":")[0].strip()), int(float(x.split(":")[1].strip()))
                 if time == 0: self.stats["done"].add(task)
                 else: self.stats["working"][task]=time
     def parse_config(self, configpath):
@@ -33,7 +33,7 @@ class SnakeFrame():
     def claim_task(self,tid):
         subprocess.Popen("git pull", shell=True).wait()
         with open(self.statuspath,"a") as statfile:
-            statfile.write(""+str(tid)+":"+str(time.time())+"\n")
+            statfile.write(""+str(tid)+":"+str(int(time.time()))+"\n")
         subprocess.Popen("git commit -a -m 'claim "+str(tid)+"'", shell=True).wait()
         subprocess.Popen("git push", shell=True).wait()
     def end_task(self,tid):
