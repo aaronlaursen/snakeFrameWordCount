@@ -27,13 +27,13 @@ class SnakeFrame():
         if t != None or len(self.stats["working"])==0: return t, False
         return min(self.stats["working"].keys(), key=(lambda x: self.stats["working"][x])), True
     def nxt_free_helper(self,task):
-        deps=deps_gen(task)
-        if len(deps)==0:
-            if task in self.stats['done']: return None
-            return task
-        if set(deps) <= self.stats["done"]:
-            if task in self.stats['done']:return None
-            return task
+        if task in self.stats['done']: return None
+        #deps=deps_gen(task)
+        #if len(deps)==0:
+        #    return task
+        #if set(deps) <= self.stats["done"]:
+        #    if task in self.stats['done']:return None
+        #    return task
         for dep in deps_gen(task):
             if dep in self.stats['done']: continue
             x=self.nxt_free_helper(dep)

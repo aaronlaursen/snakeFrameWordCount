@@ -51,14 +51,17 @@ def work_gen(unit_id):
         return reducer
     return (lambda x: False)
 
+#return iterator of dpendencies for task unit_id
 def deps_gen(unit_id):
     if int(unit_id)==0: return set([x +1000 for x in range(len(urls))])
     return set()
 
+#run when all tasks completed
 def task_final():
     print("DONE!!! WHOOP! WHOOP!")
     return
 
+#run when a task fails, before cleanup
 def task_fail():
     print("FAIL!!!")
     return
